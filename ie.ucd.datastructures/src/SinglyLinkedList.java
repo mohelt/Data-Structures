@@ -1,4 +1,3 @@
-
 import java.util.Iterator;
 
 /**
@@ -13,8 +12,16 @@ public class SinglyLinkedList<E> implements Cloneable, Iterable<E>, List<E> {
      * is the last node).
      */
     private static class Node<E> {
-        // TODO
-    } //----------- end of nested Node class -----------
+       E value;
+       Node<E> next;
+       public Node(E e) 
+       { 
+           value = e; 
+           next = null; 
+       } 
+    }
+    
+    //----------- end of nested Node class -----------
 
     // instance variables of the SinglyLinkedList
     private Node<E> head = null; // head node of the list (or null if empty)
@@ -46,14 +53,40 @@ public class SinglyLinkedList<E> implements Cloneable, Iterable<E>, List<E> {
 
     @Override
     public E get(int i) throws IndexOutOfBoundsException {
+        Node<E> a = head;
+        if(i<=this.size()) {
+            int count = 0;
+            while(count < i) {
+                count ++;
+                a = a.next;
+            }
+            return a.value;
+        }
+
         return null;
     }
 
     @Override
     public E set(int i, E e) throws IndexOutOfBoundsException {
-        return null;
-    }
-
+    	Node<E> current = head;
+    	Node<E> setNode = new Node<E>(e);
+        if(i==0) {
+        	this.addFirst(e);
+        }
+        else if(i==this.size){
+        	this.addLast(e);
+        }
+        else {
+        	for(int j=0; current != null && j < (i-1);j++) {
+        		current = current.next;
+        	}
+        	Node<E> temp = current.next;
+        	current.next = setNode;
+        	setNode.next = temp;
+        	this.size++;
+        }
+        return setNode.value;
+        }
     @Override
     public void add(int i, E e) throws IndexOutOfBoundsException {
 
@@ -102,7 +135,10 @@ public class SinglyLinkedList<E> implements Cloneable, Iterable<E>, List<E> {
      * @param e the new element to add
      */
     public void addFirst(E e) {
-        // TODO
+        Node<E> first = new Node<>(e);
+        first.next = this.head;
+        this.head = first;
+        this.size++;
     }
 
     /**
@@ -140,10 +176,13 @@ public class SinglyLinkedList<E> implements Cloneable, Iterable<E>, List<E> {
     /**
      * Produces a string representation of the contents of the list.
      * This exists for debugging purposes only.
+     * @return 
      */
     public String toString() {
-        // TODO
-        return null;
+        for(int i=0;i<this.size();i++) {
+            System.out.println(this.get(i));
+        }
+        return "end of Linked List";
     }
 
     private class SinglyLinkedListIterator<E> implements Iterator<E> {
@@ -167,7 +206,7 @@ public class SinglyLinkedList<E> implements Cloneable, Iterable<E>, List<E> {
     public static void main(String[] args) {
         //ArrayList<String> all;
         //LinkedList<String> ll;
-        SinglyLinkedList<String> sll = new SinglyLinkedList<String>();
+        /*SinglyLinkedList<String> sll = new SinglyLinkedList<String>();
 
         String[] alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
 
@@ -180,6 +219,13 @@ public class SinglyLinkedList<E> implements Cloneable, Iterable<E>, List<E> {
         for (String s : sll) {
             System.out.print(s + ", ");
         }
+        */
+            SinglyLinkedList <Integer> ll =new SinglyLinkedList <Integer>();
+            ll.addFirst(5);
+            ll.addFirst(4);
+            ll.addFirst(3);
+            ll.addFirst(2);
+            ll.set(1,0);
+            System.out.println(ll);
+        }
     }
-}
-
