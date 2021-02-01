@@ -67,14 +67,22 @@ public class SinglyLinkedList<E> implements Cloneable, Iterable<E>, List<E> {
     }
 
     @Override
+    //i has to be zero indexed
     public E set(int i, E e) throws IndexOutOfBoundsException {
+    	Node<E> current = head;
+    	for(int j=0; current != null && j <= (i-1);j++) {
+    		current = current.next;
+    	}
+    	current.value = e;
+    	return current.value;
+        }
+    //zero indexed, where 0 = first element in linked list
+    @Override
+    public void add(int i, E e) throws IndexOutOfBoundsException {
     	Node<E> current = head;
     	Node<E> setNode = new Node<E>(e);
         if(i==0) {
         	this.addFirst(e);
-        }
-        else if(i==this.size){
-        	this.addLast(e);
         }
         else {
         	for(int j=0; current != null && j < (i-1);j++) {
@@ -85,11 +93,6 @@ public class SinglyLinkedList<E> implements Cloneable, Iterable<E>, List<E> {
         	setNode.next = temp;
         	this.size++;
         }
-        return setNode.value;
-        }
-    @Override
-    public void add(int i, E e) throws IndexOutOfBoundsException {
-
     }
 
     @Override
@@ -225,7 +228,8 @@ public class SinglyLinkedList<E> implements Cloneable, Iterable<E>, List<E> {
             ll.addFirst(4);
             ll.addFirst(3);
             ll.addFirst(2);
-            ll.set(1,0);
+            ll.add(4,0);
+            ll.set(4, 10);
             System.out.println(ll);
         }
     }
