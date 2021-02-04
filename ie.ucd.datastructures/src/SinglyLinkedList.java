@@ -13,8 +13,16 @@ public class SinglyLinkedList<E> implements Cloneable, Iterable<E>, List<E> {
      * is the last node).
      */
     private static class Node<E> {
-        // TODO
-    } //----------- end of nested Node class -----------
+       E value;
+       Node<E> next;
+       public Node(E e) 
+       { 
+           e = value; 
+           next = null; 
+       } 
+    }
+    
+    //----------- end of nested Node class -----------
 
     // instance variables of the SinglyLinkedList
     private Node<E> head = null; // head node of the list (or null if empty)
@@ -46,7 +54,16 @@ public class SinglyLinkedList<E> implements Cloneable, Iterable<E>, List<E> {
 
     @Override
     public E get(int i) throws IndexOutOfBoundsException {
-        return null;
+        if(i>this.size()) {
+        	int count = 0;
+        	Node<E> a = head;
+        	while(count != i) {
+        		count ++;
+        		System.out.println(a.value);
+        		a = a.next;
+        	}
+        }
+    	return null;
     }
 
     @Override
@@ -102,7 +119,16 @@ public class SinglyLinkedList<E> implements Cloneable, Iterable<E>, List<E> {
      * @param e the new element to add
      */
     public void addFirst(E e) {
-        // TODO
+    	if(this.size() == 0) {
+         Node<E> first = new Node<E>(e);
+        this.size++;
+        this.head = first;
+    	} else {
+            Node<E> first = new Node<E>(e);
+    		first.next = this.head;
+    		this.head = first;
+    		this.size++;
+    	}
     }
 
     /**
@@ -140,10 +166,13 @@ public class SinglyLinkedList<E> implements Cloneable, Iterable<E>, List<E> {
     /**
      * Produces a string representation of the contents of the list.
      * This exists for debugging purposes only.
+     * @return 
      */
     public String toString() {
-        // TODO
-        return null;
+        for(int i=0;i<this.size();i++) {
+        	System.out.println(this.get(i));
+        }
+        return "end of Linked List";
     }
 
     private class SinglyLinkedListIterator<E> implements Iterator<E> {
@@ -167,7 +196,7 @@ public class SinglyLinkedList<E> implements Cloneable, Iterable<E>, List<E> {
     public static void main(String[] args) {
         //ArrayList<String> all;
         //LinkedList<String> ll;
-        SinglyLinkedList<String> sll = new SinglyLinkedList<String>();
+        /*SinglyLinkedList<String> sll = new SinglyLinkedList<String>();
 
         String[] alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
 
@@ -180,6 +209,42 @@ public class SinglyLinkedList<E> implements Cloneable, Iterable<E>, List<E> {
         for (String s : sll) {
             System.out.print(s + ", ");
         }
+        */
+        	SinglyLinkedList <Integer> ll =new SinglyLinkedList <Integer>();
+        	ll.addFirst(1);
+        	ll.addFirst(3);
+        	System.out.println(ll);
+        	//LinkedList<Integer>ll=newLinkedList<Integer>();
+        	/*ll.addFirst(0);
+        	ll.addFirst(1);
+        	ll.addFirst(3);
+        	ll.addFirst(4);
+        	ll.addFirst(5);
+        	ll.add(3, 2);
+        	System.out.println(ll);
+        	ll.addFirst(−100);
+        	ll.addLast(+100);
+        	System.out.println(ll);
+        	ll.removeFirst();
+        	ll.removeLast();
+        	System.out.println(ll);
+        	//Removestheiteminthespecifiedindex
+        	ll.remove(2);
+        	System.out.println(ll);
+        	ll.removeFirst();
+        	System.out.println(ll);
+        	ll.removeLast();
+        	System.out.println(ll);
+        	ll.removeFirst();
+        	System.out.println(ll);
+        	ll.addFirst(9999);
+        	ll.addFirst(8888);
+        	ll.addFirst(7777);
+        	ystem.out.println(ll);
+        	System.out.println(ll.get(0));
+        	System.out.println(ll.get(1));
+        	System.out.println(ll.get(2));
+        	System.out.println(ll);*/
+        }
     }
-}
 
