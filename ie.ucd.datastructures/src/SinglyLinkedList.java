@@ -5,6 +5,9 @@ import java.util.Iterator;
  * A basic singly linked list implementation.
  */
 public class SinglyLinkedList<E> implements Cloneable, Iterable<E>, List<E> {
+    public E removeLast() {
+        return null;
+    }
     //---------------- nested Node class ----------------
 
     /**
@@ -167,6 +170,7 @@ public class SinglyLinkedList<E> implements Cloneable, Iterable<E>, List<E> {
     public static void main(String[] args) {
         //ArrayList<String> all;
         //LinkedList<String> ll;
+        
         SinglyLinkedList<String> sll = new SinglyLinkedList<String>();
 
         String[] alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
