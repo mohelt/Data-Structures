@@ -1,254 +1,8 @@
 import java.util.Iterator;
 
-/**
- * A basic singly linked list implementation.
+/* A basic singly linked list implementation.
  */
 public class SinglyLinkedList<E> implements Cloneable, Iterable<E>, List<E> {
-<<<<<<< HEAD
-    //---------------- nested Node class ----------------
-
-    /**
-     * Node of a singly linked list, which stores a reference to its
-     * element and to the subsequent node in the list (or null if this
-     * is the last node).
-     */
-    private static class Node<E> {
-       E value;
-       Node<E> next;
-       public Node(E e) 
-       { 
-           e = value; 
-           next = null; 
-       } 
-    }
-    
-    //----------- end of nested Node class -----------
-
-    // instance variables of the SinglyLinkedList
-    private Node<E> head = null; // head node of the list (or null if empty)
-
-    private int size = 0; // number of nodes in the list
-
-    public SinglyLinkedList() {
-    }              // constructs an initially empty list
-
-    // access methods
-
-    /**
-     * Returns the number of elements in the linked list.
-     *
-     * @return number of elements in the linked list
-     */
-    public int size() {
-        return size;
-    }
-
-    /**
-     * Tests whether the linked list is empty.
-     *
-     * @return true if the linked list is empty, false otherwise
-     */
-    public boolean isEmpty() {
-        return size == 0;
-    }
-
-    @Override
-    public E get(int i) throws IndexOutOfBoundsException {
-        if(i>this.size()) {
-        	int count = 0;
-        	Node<E> a = head;
-        	while(count != i) {
-        		count ++;
-        		System.out.println(a.value);
-        		a = a.next;
-        	}
-        }
-    	return null;
-    }
-
-    @Override
-    public E set(int i, E e) throws IndexOutOfBoundsException {
-        return null;
-    }
-
-    @Override
-    public void add(int i, E e) throws IndexOutOfBoundsException {
-
-    }
-
-    @Override
-    public E remove(int i) throws IndexOutOfBoundsException {
-        return null;
-    }
-
-    /**
-     * Returns (but does not remove) the first element of the list
-     *
-     * @return element at the front of the list (or null if empty)
-     */
-    public E first() {
-        // TODO
-        return null;
-    }
-
-    /**
-     * Returns the last node of the list
-     *
-     * @return last node of the list (or null if empty)
-     */
-    public Node<E> getLast() {
-        // TODO
-        return null;
-    }
-
-    /**
-     * Returns (but does not remove) the last element of the list.
-     *
-     * @return element at the end of the list (or null if empty)
-     */
-    public E last() {
-        // TODO
-        return null;
-    }
-
-    // update methods
-
-    /**
-     * Adds an element to the front of the list.
-     *
-     * @param e the new element to add
-     */
-    public void addFirst(E e) {
-    	if(this.size() == 0) {
-         Node<E> first = new Node<E>(e);
-        this.size++;
-        this.head = first;
-    	} else {
-            Node<E> first = new Node<E>(e);
-    		first.next = this.head;
-    		this.head = first;
-    		this.size++;
-    	}
-    }
-
-    /**
-     * Adds an element to the end of the list.
-     *
-     * @param e the new element to add
-     */
-    public void addLast(E e) {
-        // TODO
-    }
-
-    /**
-     * Removes and returns the first element of the list.
-     *
-     * @return the removed element (or null if empty)
-     */
-    public E removeFirst() {
-        // TODO
-        return null;
-    }
-
-    @SuppressWarnings({"unchecked"})
-    public boolean equals(Object o) {
-        // TODO
-        return false;   // if we reach this, everything matched successfully
-    }
-
-    @SuppressWarnings({"unchecked"})
-    public SinglyLinkedList<E> clone() throws CloneNotSupportedException {
-        // TODO
-        return null;
-    }
-
-
-    /**
-     * Produces a string representation of the contents of the list.
-     * This exists for debugging purposes only.
-     * @return 
-     */
-    public String toString() {
-        for(int i=0;i<this.size();i++) {
-        	System.out.println(this.get(i));
-        }
-        return "end of Linked List";
-    }
-
-    private class SinglyLinkedListIterator<E> implements Iterator<E> {
-        @Override
-        public boolean hasNext() {
-            // TODO
-            return false;
-        }
-
-        @Override
-        public E next() {
-            // TODO
-            return null;
-        }
-    }
-
-    public Iterator<E> iterator() {
-        return new SinglyLinkedListIterator<E>();
-    }
-
-    public static void main(String[] args) {
-        //ArrayList<String> all;
-        //LinkedList<String> ll;
-        /*SinglyLinkedList<String> sll = new SinglyLinkedList<String>();
-
-        String[] alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
-
-        for (String s : alphabet) {
-            sll.addFirst(s);
-            sll.addLast(s);
-        }
-        System.out.println(sll.toString());
-
-        for (String s : sll) {
-            System.out.print(s + ", ");
-        }
-        */
-        	SinglyLinkedList <Integer> ll =new SinglyLinkedList <Integer>();
-        	ll.addFirst(1);
-        	ll.addFirst(3);
-        	System.out.println(ll);
-        	//LinkedList<Integer>ll=newLinkedList<Integer>();
-        	/*ll.addFirst(0);
-        	ll.addFirst(1);
-        	ll.addFirst(3);
-        	ll.addFirst(4);
-        	ll.addFirst(5);
-        	ll.add(3, 2);
-        	System.out.println(ll);
-        	ll.addFirst(−100);
-        	ll.addLast(+100);
-        	System.out.println(ll);
-        	ll.removeFirst();
-        	ll.removeLast();
-        	System.out.println(ll);
-        	//Removestheiteminthespecifiedindex
-        	ll.remove(2);
-        	System.out.println(ll);
-        	ll.removeFirst();
-        	System.out.println(ll);
-        	ll.removeLast();
-        	System.out.println(ll);
-        	ll.removeFirst();
-        	System.out.println(ll);
-        	ll.addFirst(9999);
-        	ll.addFirst(8888);
-        	ll.addFirst(7777);
-        	ystem.out.println(ll);
-        	System.out.println(ll.get(0));
-        	System.out.println(ll.get(1));
-        	System.out.println(ll.get(2));
-        	System.out.println(ll);*/
-        }
-    }
-
-=======
 	//---------------- nested Node class ----------------
 
 	/**
@@ -321,6 +75,7 @@ public class SinglyLinkedList<E> implements Cloneable, Iterable<E>, List<E> {
 		current.value = e;
 		return current.value;
 	}
+
 	//zero indexed, where 0 = first element in linked list
 	@Override
 	public void add(int i, E e) throws IndexOutOfBoundsException {
@@ -339,29 +94,21 @@ public class SinglyLinkedList<E> implements Cloneable, Iterable<E>, List<E> {
 			this.size++;
 		}
 	}
-	//zero indexed, if you want to remove the first element , i must be 0;
+	//zero indexed, where 0 = first element in linked list for i
 	@Override
 	public E remove(int i) throws IndexOutOfBoundsException {
-		Node<E> previous = head;
-		int j =0;
+		Node<E> current = head;
 		if(i == 0) {
-			head = head.next;
-			this.size--;
-		}else if (i<this.size) {
-			for(j=0;previous != null && j<(i-1);j++) {
-				previous = previous.next;
+			this.removeFirst();
+		}else if(i<this.size){
+			for(int j =0;current.next != null &&j <(i-1);j++ ) {
+				current = current.next;
 			}
-			Node<E> temp = previous.next.next;
-			previous.next = temp;
+			Node<E> temp = current.next.next;
+			current.next=temp;
 			this.size--;
-		}else if(i == (this.size-1)) {
-			for(j=0;previous != null && j<(i-1);j++) {
-				previous = previous.next;
-			}
-			previous.next = null;
-			this.size--;
-		}else if(i>(this.size-1)) {
-			throw new  IndexOutOfBoundsException("Index to big,/ zero indexed");
+		}else {
+			throw new IndexOutOfBoundsException("index to big");
 		}
 		return null;
 
@@ -374,10 +121,7 @@ public class SinglyLinkedList<E> implements Cloneable, Iterable<E>, List<E> {
 	 */
 	public E first() {
 		// TODO
-		if(head != null) {
-			return head.value;
-		}
-		return null;
+		return head.value;
 	}
 
 	/**
@@ -386,11 +130,14 @@ public class SinglyLinkedList<E> implements Cloneable, Iterable<E>, List<E> {
 	 * @return last node of the list (or null if empty)
 	 */
 	public Node<E> getLast() {
-		Node<E> current= head;
+		Node<E> current = head;
 		while(current.next != null) {
-			current = current.next;
+			current=current.next;
 		}
-		return current;
+		if(current != null) {
+			return current;
+		}
+		return null;
 	}
 
 	/**
@@ -399,11 +146,11 @@ public class SinglyLinkedList<E> implements Cloneable, Iterable<E>, List<E> {
 	 * @return element at the end of the list (or null if empty)
 	 */
 	public E last() {
-		Node<E> current= head;
+		Node<E> current = head;
+		while(current.next != null) {
+			current=current.next;
+		}
 		if(current != null) {
-			while(current.next != null) {
-				current = current.next;
-			}
 			return current.value;
 		}
 		return null;
@@ -429,13 +176,13 @@ public class SinglyLinkedList<E> implements Cloneable, Iterable<E>, List<E> {
 	 * @param e the new element to add
 	 */
 	public void addLast(E e) {
-		Node<E> current= head;
-		Node<E> addedNode= new Node<E>(e);
-			while(current.next != null) {
-				current = current.next;
-			}
-			current.next = addedNode;
-			this.size++;
+		Node<E> current = head;
+		Node<E> nodeToAdd = new Node<E>(e);
+		while(current.next != null) {
+			current=current.next;
+		}
+		current.next =nodeToAdd;
+		this.size++;
 	}
 
 	/**
@@ -444,9 +191,16 @@ public class SinglyLinkedList<E> implements Cloneable, Iterable<E>, List<E> {
 	 * @return the removed element (or null if empty)
 	 */
 	public E removeFirst() {
-		head = head.next;
-		this.size--;
-		return head.value;
+		Node<E> current = head;
+		if(current.next != null) {
+			head = current.next;
+			this.size--;
+		}else {
+			head = null;
+			this.size--;
+		}
+
+		return null;
 	}
 
 	@SuppressWarnings({"unchecked"})
@@ -493,6 +247,28 @@ public class SinglyLinkedList<E> implements Cloneable, Iterable<E>, List<E> {
 	}
 
 	public static void main(String[] args) {
+		//ArrayList<String> all;
+		//LinkedList<String> ll;
+		/*SinglyLinkedList<String> sll = new SinglyLinkedList<String>();
+        String[] alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
+        for (String s : alphabet) {
+            sll.addFirst(s);
+            sll.addLast(s);
+        }
+        System.out.println(sll.toString());
+        for (String s : sll) {
+            System.out.print(s + ", ");
+        }
+		 */
+		SinglyLinkedList <Integer> ll =new SinglyLinkedList <Integer>();
+		ll.addFirst(6);
+		ll.addFirst(5);
+		ll.addFirst(4);
+		ll.addFirst(3);
+		ll.addFirst(2);
+		ll.addFirst(1);
+		ll.addLast(7);
+
+		System.out.println(ll);
 	}
 }
->>>>>>> 03a8b6208b78c49a19415957d85aaa1348270314
