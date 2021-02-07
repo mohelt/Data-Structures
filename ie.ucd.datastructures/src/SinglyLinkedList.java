@@ -1,7 +1,7 @@
-<<<<<<< HEAD
 import java.util.Iterator;
 
-/* A basic singly linked list implementation.
+/**
+ * A basic singly linked list implementation.
  */
 public class SinglyLinkedList<E> implements Cloneable, Iterable<E>, List<E> {
 	//---------------- nested Node class ----------------
@@ -12,21 +12,31 @@ public class SinglyLinkedList<E> implements Cloneable, Iterable<E>, List<E> {
 	 * is the last node).
 	 */
 	private static class Node<E> {
-		E value;
-		Node<E> next;
-		public Node(E e) 
-		{ 
-			value = e; 
-			next = null; 
-		} 
-	}
+		private E data;  // reference to the element stored at this node
 
-	//----------- end of nested Node class -----------
+		private Node<E> nextNode; 
+
+		
+		//methods for accessing variables
+
+		public Node<E> getNextNode() { return nextNode; }
+
+		public E getData() { return data; }
+
+		// Modifier methods
+		public void setNext(Node<E> n) { nextNode = n; }
+		
+		public Node(E e, Node<E> n) {
+			nextNode = n;
+			data = e;
+		}
+
+		// reference to the subsequent node in the list// TODO
+	} //----------- end of nested Node class -----------
 
 	// instance variables of the SinglyLinkedList
-	private Node<E> head = null; // head node of the list (or null if empty)
-
 	private int size = 0; // number of nodes in the list
+	private Node<E> head = null; // head node of the list (or null if empty)
 
 	public SinglyLinkedList() {
 	}              // constructs an initially empty list
@@ -47,82 +57,135 @@ public class SinglyLinkedList<E> implements Cloneable, Iterable<E>, List<E> {
 	 *
 	 * @return true if the linked list is empty, false otherwise
 	 */
+	@Override
+	public E get(int i) throws IndexOutOfBoundsException {
+		if (isEmpty()) { // if list is empty
+			throw new RuntimeException("The specified index does not exist");
+		}
+
+		if (i == 0) { // if element chosen is sopposed to be the head
+		}
+
+		Node<E> current = head;
+
+		int count = 0;
+		while (current.getNextNode() != null && count != i) { // go through the linkedlist until correct index element is chosen
+			current = current.nextNode;
+			count++;
+		}
+
+		if(count == i) { // returns the element in the correct index
+			return current.getData();
+		} else {
+			throw new RuntimeException("the index you have chosen does not exist");
+		}
+	}
 	public boolean isEmpty() {
 		return size == 0;
 	}
+	
 
 	@Override
-	public E get(int i) throws IndexOutOfBoundsException {
-		Node<E> a = head;
-		if(i<=this.size()) {
-			int count = 0;
-			while(count < i) {
-				count ++;
-				a = a.next;
-			}
-			return a.value;
-		}
-
+	public E set(int i, E e) throws IndexOutOfBoundsException {
 		return null;
 	}
 
-	@Override
-	//i has to be zero indexed
-	public E set(int i, E e) throws IndexOutOfBoundsException {
-		Node<E> current = head;
-		for(int j=0; current != null && j <= (i-1);j++) {
-			current = current.next;
-		}
-		current.value = e;
-		return current.value;
-	}
-
-	//zero indexed, where 0 = first element in linked list
-	@Override
-	public void add(int i, E e) throws IndexOutOfBoundsException {
-		Node<E> current = head;
-		Node<E> setNode = new Node<E>(e);
-		if(i==0) {
-			this.addFirst(e);
-		}
-		else {
-			for(int j=0; current != null && j < (i-1);j++) {
-				current = current.next;
-			}
-			Node<E> temp = current.next;
-			current.next = setNode;
-			setNode.next = temp;
-			this.size++;
-		}
-	}
-	//zero indexed, where 0 = first element in linked list for i
+	
 	@Override
 	public E remove(int i) throws IndexOutOfBoundsException {
-		Node<E> current = head;
-		if(i == 0) {
-			this.removeFirst();
-		}else if(i<this.size){
-			for(int j =0;current.next != null &&j <(i-1);j++ ) {
-				current = current.next;
-			}
-			Node<E> temp = current.next.next;
-			current.next=temp;
-			this.size--;
-		}else {
-			throw new IndexOutOfBoundsException("index to big");
-		}
-		return null;
+		Node<E> deletedNode = head; // this is the element that will come back
 
+		if (isEmpty()){
+			throw new RuntimeException("cannot delete the element in question");
+		}
+
+		if (i == 0) { // if the element to be deleted is the head
+			head = head.nextNode;
+			size--;
+			return deletedNode.data;
+		}
+
+		Node<E> current = head;
+		Node<E> prev = null;
+
+		int count = 0;
+		while (current != null && count != i) { // walk through the linked list until the correct index is found from the list
+			prev = current;
+			current = current.nextNode;
+			count++;
+		}
+
+		if (current == null) {
+			throw new RuntimeException("cannot delete the element in question");
+		}
+
+		deletedNode = current;
+		// delete the current node 
+		prev.nextNode = current.nextNode;
+		size--;
+
+		return deletedNode.data;
+	}
+	
+	@Override
+	public void add(int i, E e) throws IndexOutOfBoundsException {
+		Node<E> newNode = new Node<E>(e, null);
+
+		if (isEmpty() && i != 0) { //if the list is empty and index is not head element
+			throw new RuntimeException("Index does not exist");
+		}
+
+		if (i == 0) { // if element is the head element
+			addFirst(e);
+		}
+
+		Node<E> current = head;
+		Node<E> prev = null;
+
+		int count = 0;
+		while (current != null && count != i) { //until correct index is found and chosen, walk walk through the list 
+			prev = current;
+			current = current.nextNode;
+			count++;
+		}
+
+		if(count == i && current == null) { // if the item chosen index is the last element
+			addLast(e);
+		} else if (current == null && count < i){ // if index is tooo large
+			throw new RuntimeException("Index does not exist");
+		} else if (current != null) { // inserting the new element
+			prev.nextNode = newNode;
+			newNode.nextNode = current;
+			size++;
+		}
 	}
 
+	
+	public E removeLast() {
+		Node<E> current = head;
+		if(current ==null) {
+			head = null;
+			return null;
+		}
+		while(current.nextNode.nextNode != null) {
+			current = current.nextNode;
+		}
+		E value=current.nextNode.data;
+		current.nextNode =null;
+		return value;
+
+	}
 	/**
 	 * Returns (but does not remove) the first element of the list
 	 *
 	 * @return element at the front of the list (or null if empty)
 	 */
 	public E first() {
-		// TODO
-		return head.value;
+		if(isEmpty()) {
+			return null;
+		} else {
+			return get(0);
+		}
 	}
 
 	/**
@@ -132,13 +195,15 @@ public class SinglyLinkedList<E> implements Cloneable, Iterable<E>, List<E> {
 	 */
 	public Node<E> getLast() {
 		Node<E> current = head;
-		while(current.next != null) {
-			current=current.next;
+		if(isEmpty()) {
+			return null;
+		} else {
+			while(current != null) {
+				current = current.nextNode;
+			}
+
 		}
-		if(current != null) {
-			return current;
-		}
-		return null;
+		return current;
 	}
 
 	/**
@@ -147,17 +212,13 @@ public class SinglyLinkedList<E> implements Cloneable, Iterable<E>, List<E> {
 	 * @return element at the end of the list (or null if empty)
 	 */
 	public E last() {
-		Node<E> current = head;
-		while(current.next != null) {
-			current=current.next;
+		if(isEmpty()) {
+			return null;
+		} else {
+			return get(size() - 1);
 		}
-		if(current != null) {
-			return current.value;
-		}
-		return null;
 	}
 
-	// update methods
 
 	/**
 	 * Adds an element to the front of the list.
@@ -165,10 +226,8 @@ public class SinglyLinkedList<E> implements Cloneable, Iterable<E>, List<E> {
 	 * @param e the new element to add
 	 */
 	public void addFirst(E e) {
-		Node<E> first = new Node<>(e);
-		first.next = this.head;
-		this.head = first;
-		this.size++;
+		head = new Node<E>(e, head); // create the new node and link new node
+		size++;
 	}
 
 	/**
@@ -177,13 +236,17 @@ public class SinglyLinkedList<E> implements Cloneable, Iterable<E>, List<E> {
 	 * @param e the new element to add
 	 */
 	public void addLast(E e) {
-		Node<E> current = head;
-		Node<E> nodeToAdd = new Node<E>(e);
-		while(current.next != null) {
-			current=current.next;
+		Node<E> newest = new Node<E>(e, null); // node will become the tail element
+		Node<E> last = head;
+		if(last == null) {
+			head = newest;
+		} else {
+			while (last.getNextNode() != null) {
+				last = last.nextNode;
+			}
+			last.setNext(newest); 
+			size++;
 		}
-		current.next =nodeToAdd;
-		this.size++;
 	}
 
 	/**
@@ -192,22 +255,21 @@ public class SinglyLinkedList<E> implements Cloneable, Iterable<E>, List<E> {
 	 * @return the removed element (or null if empty)
 	 */
 	public E removeFirst() {
-		Node<E> current = head;
-		if(current.next != null) {
-			head = current.next;
-			this.size--;
-		}else {
-			head = null;
-			this.size--;
-		}
+		Node<E> deleted = head; 
 
-		return null;
+		if (isEmpty()){
+			throw new RuntimeException("cannot delete the element in question");
+		} else {
+			head = head.nextNode; 
+			size--;
+		}
+		return deleted.data;
 	}
 
 	@SuppressWarnings({"unchecked"})
 	public boolean equals(Object o) {
 		// TODO
-		return false;   // if we reach this, everything matched successfully
+		return false;   
 	}
 
 	@SuppressWarnings({"unchecked"})
@@ -220,247 +282,59 @@ public class SinglyLinkedList<E> implements Cloneable, Iterable<E>, List<E> {
 	/**
 	 * Produces a string representation of the contents of the list.
 	 * This exists for debugging purposes only.
-	 * @return 
 	 */
 	public String toString() {
-		for(int i=0;i<this.size();i++) {
-			System.out.println(this.get(i));
+		StringBuilder temporaryString = new StringBuilder();
+		temporaryString.append("[");
+		for(Iterator<E> it = iterator(); it.hasNext();){
+			temporaryString.append(it.next()).append(", ");
 		}
-		return "end of Linked List";
+		temporaryString.deleteCharAt(temporaryString.length() - 1);
+		temporaryString.deleteCharAt(temporaryString.length() - 1);
+		temporaryString.append("]");
+		return temporaryString.toString();
 	}
 
-	private class SinglyLinkedListIterator<E> implements Iterator<E> {
+	private class SinglyLinkedListIterator implements Iterator<E> {
+		private Node<E> current;
+		public SinglyLinkedListIterator() {
+			current = head;
+		}
 		@Override
 		public boolean hasNext() {
-			// TODO
-			return false;
+			return current != null;
 		}
 
 		@Override
 		public E next() {
-			// TODO
-			return null;
+			if(!hasNext()) throw new RuntimeException("No such element");
+
+			E res = current.getData();
+			current = current.getNextNode();
+			return res;
 		}
 	}
 
 	public Iterator<E> iterator() {
-		return new SinglyLinkedListIterator<E>();
+		return new SinglyLinkedListIterator();
 	}
 
 	public static void main(String[] args) {
 		//ArrayList<String> all;
 		//LinkedList<String> ll;
-		/*SinglyLinkedList<String> sll = new SinglyLinkedList<String>();
-        String[] alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
-        for (String s : alphabet) {
-            sll.addFirst(s);
-            sll.addLast(s);
-        }
-        System.out.println(sll.toString());
-        for (String s : sll) {
-            System.out.print(s + ", ");
-        }
-		 */
-		SinglyLinkedList <Integer> ll =new SinglyLinkedList <Integer>();
-		ll.addFirst(6);
-		ll.addFirst(5);
-		ll.addFirst(4);
-		ll.addFirst(3);
-		ll.addFirst(2);
-		ll.addFirst(1);
-		ll.addLast(7);
 
-		System.out.println(ll);
+		SinglyLinkedList<String> sll = new SinglyLinkedList<String>();
+
+		String[] alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
+
+		for (String s : alphabet) {
+			sll.addFirst(s);
+			sll.addLast(s);
+		}
+		System.out.println(sll.toString());
+
+		for (String s : sll) {
+			System.out.print(s + ", ");
+		}
 	}
 }
-=======
-
-import java.util.Iterator;
-
-/**
- * A basic singly linked list implementation.
- */
-public class SinglyLinkedList<E> implements Cloneable, Iterable<E>, List<E> {
-    public E removeLast() {
-        return null;
-    }
-    //---------------- nested Node class ----------------
-
-    /**
-     * Node of a singly linked list, which stores a reference to its
-     * element and to the subsequent node in the list (or null if this
-     * is the last node).
-     */
-    private static class Node<E> {
-        // TODO
-    } //----------- end of nested Node class -----------
-
-    // instance variables of the SinglyLinkedList
-    private Node<E> head = null; // head node of the list (or null if empty)
-
-    private int size = 0; // number of nodes in the list
-
-    public SinglyLinkedList() {
-    }              // constructs an initially empty list
-
-    // access methods
-
-    /**
-     * Returns the number of elements in the linked list.
-     *
-     * @return number of elements in the linked list
-     */
-    public int size() {
-        return size;
-    }
-
-    /**
-     * Tests whether the linked list is empty.
-     *
-     * @return true if the linked list is empty, false otherwise
-     */
-    public boolean isEmpty() {
-        return size == 0;
-    }
-
-    @Override
-    public E get(int i) throws IndexOutOfBoundsException {
-        return null;
-    }
-
-    @Override
-    public E set(int i, E e) throws IndexOutOfBoundsException {
-        return null;
-    }
-
-    @Override
-    public void add(int i, E e) throws IndexOutOfBoundsException {
-
-    }
-
-    @Override
-    public E remove(int i) throws IndexOutOfBoundsException {
-        return null;
-    }
-
-    /**
-     * Returns (but does not remove) the first element of the list
-     *
-     * @return element at the front of the list (or null if empty)
-     */
-    public E first() {
-        // TODO
-        return null;
-    }
-
-    /**
-     * Returns the last node of the list
-     *
-     * @return last node of the list (or null if empty)
-     */
-    public Node<E> getLast() {
-        // TODO
-        return null;
-    }
-
-    /**
-     * Returns (but does not remove) the last element of the list.
-     *
-     * @return element at the end of the list (or null if empty)
-     */
-    public E last() {
-        // TODO
-        return null;
-    }
-
-    // update methods
-
-    /**
-     * Adds an element to the front of the list.
-     *
-     * @param e the new element to add
-     */
-    public void addFirst(E e) {
-        // TODO
-    }
-
-    /**
-     * Adds an element to the end of the list.
-     *
-     * @param e the new element to add
-     */
-    public void addLast(E e) {
-        // TODO
-    }
-
-    /**
-     * Removes and returns the first element of the list.
-     *
-     * @return the removed element (or null if empty)
-     */
-    public E removeFirst() {
-        // TODO
-        return null;
-    }
-
-    @SuppressWarnings({"unchecked"})
-    public boolean equals(Object o) {
-        // TODO
-        return false;   // if we reach this, everything matched successfully
-    }
-
-    @SuppressWarnings({"unchecked"})
-    public SinglyLinkedList<E> clone() throws CloneNotSupportedException {
-        // TODO
-        return null;
-    }
-
-
-    /**
-     * Produces a string representation of the contents of the list.
-     * This exists for debugging purposes only.
-     */
-    public String toString() {
-        // TODO
-        return null;
-    }
-
-    private class SinglyLinkedListIterator<E> implements Iterator<E> {
-        @Override
-        public boolean hasNext() {
-            // TODO
-            return false;
-        }
-
-        @Override
-        public E next() {
-            // TODO
-            return null;
-        }
-    }
-
-    public Iterator<E> iterator() {
-        return new SinglyLinkedListIterator<E>();
-    }
-
-    public static void main(String[] args) {
-        //ArrayList<String> all;
-        //LinkedList<String> ll;
-        
-        SinglyLinkedList<String> sll = new SinglyLinkedList<String>();
-
-        String[] alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
-
-        for (String s : alphabet) {
-            sll.addFirst(s);
-            sll.addLast(s);
-        }
-        System.out.println(sll.toString());
-
-        for (String s : sll) {
-            System.out.print(s + ", ");
-        }
-    }
-}
-
->>>>>>> branch 'main' of https://github.com/ucd2016comp20010/datastructures21.git
