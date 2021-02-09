@@ -25,7 +25,7 @@ public class SinglyLinkedList<E> implements Cloneable, Iterable<E>, List<E> {
 
 		// Modifier methods
 		public void setNext(Node<E> n) { nextNode = n; }
-		
+		public void setData(E n) { data = n; }
 		public Node(E e, Node<E> n) {
 			nextNode = n;
 			data = e;
@@ -84,10 +84,21 @@ public class SinglyLinkedList<E> implements Cloneable, Iterable<E>, List<E> {
 		return size == 0;
 	}
 	
-
+	//zero indexed i.e i = 0 is the first element
 	@Override
 	public E set(int i, E e) throws IndexOutOfBoundsException {
-		return null;
+		Node<E> current = head;
+		if(size == 0) {
+			throw new RuntimeException("index doesn't exist");
+		}
+		if(size< i) {
+			throw new RuntimeException("index doesn't exist");
+		}
+		for(int j =0; j<i;j++) {
+			current =current.nextNode;
+		}
+		current.setData(e);
+		return current.getData();
 	}
 
 	
@@ -286,8 +297,8 @@ public class SinglyLinkedList<E> implements Cloneable, Iterable<E>, List<E> {
 	public String toString() {
 		StringBuilder temporaryString = new StringBuilder();
 		temporaryString.append("[");
-		for(Iterator<E> it = iterator(); it.hasNext();){
-			temporaryString.append(it.next()).append(", ");
+		for(Iterator<E> iterator = iterator(); iterator.hasNext();){
+			temporaryString.append(iterator.next()).append(", ");
 		}
 		temporaryString.deleteCharAt(temporaryString.length() - 1);
 		temporaryString.deleteCharAt(temporaryString.length() - 1);

@@ -35,6 +35,17 @@ class SinglyLinkedListTest {
 		
 		
 	}
+	@Test
+	void testSet() {
+		SinglyLinkedList<Integer> ll = new SinglyLinkedList<>();
+		ll.addFirst(-1);
+		ll.addLast(-2);
+		ll.set(0, 1);
+		ll.set(1, 2);
+		assertEquals(1, ll.first());
+		assertEquals(2, ll.last());
+	}
+
 
 	@Test
 	void testLast() {
