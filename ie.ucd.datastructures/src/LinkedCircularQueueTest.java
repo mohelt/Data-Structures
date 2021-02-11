@@ -11,7 +11,7 @@ class LinkedCircularQueueTest {
 
 	@Test
 	void testSize() {
-		LinkedQueue<Integer> s = new LinkedQueue<>();
+		LinkedCircularQueue<Integer> s = new LinkedCircularQueue<>();
 		for(int i = 0; i < 10; ++i)
 			s.enqueue(i);
 		assertEquals(10, s.size());
@@ -19,7 +19,7 @@ class LinkedCircularQueueTest {
 
 	@Test
 	void testIsEmpty() {
-		LinkedQueue<Integer> s = new LinkedQueue<>();
+		LinkedCircularQueue<Integer> s = new LinkedCircularQueue<>();
 		for(int i = 0; i < 10; ++i)
 			s.enqueue(i);
 		for(int i = 0; i < 10; ++i)
@@ -29,7 +29,7 @@ class LinkedCircularQueueTest {
 
 	@Test
 	void testEnqueue() {
-		LinkedQueue<Integer> s = new LinkedQueue<>();
+		LinkedCircularQueue<Integer> s = new LinkedCircularQueue<>();
 		for(int i = 0; i < 10; ++i)
 			s.enqueue(i);
 		assertEquals("[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]", s.toString());
@@ -37,7 +37,7 @@ class LinkedCircularQueueTest {
 
 	@Test
 	void testFirst() {
-		LinkedQueue<Integer> s = new LinkedQueue<>();
+		LinkedCircularQueue<Integer> s = new LinkedCircularQueue<>();
 		for(int i = 0; i < 10; ++i)
 			s.enqueue(i);
 		assertEquals(0, s.first());
@@ -45,7 +45,7 @@ class LinkedCircularQueueTest {
 
 	@Test
 	void testDequeue() {
-		LinkedQueue<Integer> s = new LinkedQueue<>();
+		LinkedCircularQueue<Integer> s = new LinkedCircularQueue<>();
 		for(int i = 0; i < 10; ++i)
 			s.enqueue(i);
 
