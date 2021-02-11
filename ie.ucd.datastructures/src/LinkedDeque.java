@@ -1,5 +1,5 @@
 public class LinkedDeque<E> implements Deque<E> {
-
+	private SinglyLinkedList<E> list = new SinglyLinkedList<>();
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 
@@ -8,49 +8,52 @@ public class LinkedDeque<E> implements Deque<E> {
 	@Override
 	public int size() {
 		// TODO Auto-generated method stub
-		return 0;
+		return list.size();
 	}
 
 	@Override
 	public boolean isEmpty() {
 		// TODO Auto-generated method stub
-		return false;
+		return list.isEmpty();
 	}
 
 	@Override
 	public E first() {
 		// TODO Auto-generated method stub
-		return null;
+		return list.first();
 	}
 
 	@Override
 	public E last() {
 		// TODO Auto-generated method stub
-		return null;
+		return list.last();
 	}
 
 	@Override
 	public void addFirst(E e) {
-		// TODO Auto-generated method stub
-		
+		list.addFirst(e);
 	}
 
 	@Override
 	public void addLast(E e) {
-		// TODO Auto-generated method stub
-		
+		list.addLast(e);
 	}
 
 	@Override
 	public E removeFirst() {
 		// TODO Auto-generated method stub
-		return null;
+		return list.removeFirst();
 	}
 
 	@Override
 	public E removeLast() {
 		// TODO Auto-generated method stub
-		return null;
+		return list.removeLast();
+	}
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		return list.toString();
 	}
 
 }
