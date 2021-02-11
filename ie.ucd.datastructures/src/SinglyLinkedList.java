@@ -1,3 +1,5 @@
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import java.util.Iterator;
 
 /**
@@ -183,6 +185,7 @@ public class SinglyLinkedList<E> implements Cloneable, Iterable<E>, List<E> {
 		}
 		E value=current.nextNode.data;
 		current.nextNode =null;
+		size--;
 		return value;
 
 	}
@@ -209,7 +212,7 @@ public class SinglyLinkedList<E> implements Cloneable, Iterable<E>, List<E> {
 		if(isEmpty()) {
 			return null;
 		} else {
-			while(current != null) {
+			while(current.getNextNode() != null) {
 				current = current.nextNode;
 			}
 
@@ -226,7 +229,7 @@ public class SinglyLinkedList<E> implements Cloneable, Iterable<E>, List<E> {
 		if(isEmpty()) {
 			return null;
 		} else {
-			return get(size() - 1);
+			return this.getLast().getData();
 		}
 	}
 
@@ -251,6 +254,7 @@ public class SinglyLinkedList<E> implements Cloneable, Iterable<E>, List<E> {
 		Node<E> last = head;
 		if(last == null) {
 			head = newest;
+			size++;
 		} else {
 			while (last.getNextNode() != null) {
 				last = last.nextNode;
@@ -334,6 +338,7 @@ public class SinglyLinkedList<E> implements Cloneable, Iterable<E>, List<E> {
 		//ArrayList<String> all;
 		//LinkedList<String> ll;
 
+		
 		SinglyLinkedList<String> sll = new SinglyLinkedList<String>();
 
 		String[] alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");

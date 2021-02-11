@@ -26,8 +26,9 @@ class LinkedStackTest {
 	@Test
 	void testPush() {
 		LinkedStack<Integer> s = new LinkedStack<>();
-		for(int i = 0; i < 10; ++i)
+		for(int i = 0; i < 10; ++i) {
 			s.push(i);
+		}
 		assertEquals(10, s.size());
 		assertEquals("[9, 8, 7, 6, 5, 4, 3, 2, 1, 0]", s.toString());
 	}
@@ -43,8 +44,9 @@ class LinkedStackTest {
 	@Test
 	void testPop() {
 		LinkedStack<Integer> s = new LinkedStack<>();
-		for(int i = 0; i < 10; ++i)
+		for(int i = 0; i < 10; ++i) {
 			s.push(i);
+		}
 		assertEquals(9, s.pop());
 		assertEquals(9, s.size());
 	}

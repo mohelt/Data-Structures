@@ -1,38 +1,47 @@
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 public class LinkedStack<E> implements Stack<E> {
-
+	
+	private SinglyLinkedList<E> list = new SinglyLinkedList<>();
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-
+		LinkedStack<Integer> s = new LinkedStack<>();
+		for(int i = 0; i < 10; ++i) {
+			s.push(i);
+		}
+		System.out.println(s.size());
+		System.out.println(s.toString());
+		
 	}
 
 	@Override
 	public int size() {
-		// TODO Auto-generated method stub
-		return 0;
+		return list.size();
 	}
 
 	@Override
 	public boolean isEmpty() {
-		// TODO Auto-generated method stub
-		return false;
+		return list.isEmpty();
 	}
 
 	@Override
 	public void push(E e) {
-		// TODO Auto-generated method stub
-		
+		list.addFirst(e);
 	}
 
 	@Override
 	public E top() {
 		// TODO Auto-generated method stub
-		return null;
+		return list.first();
 	}
 
 	@Override
 	public E pop() {
-		// TODO Auto-generated method stub
-		return null;
+		return list.removeFirst();
+				
 	}
-
+	
+	public String toString()
+	{
+		return list.toString();
+	}
 }
