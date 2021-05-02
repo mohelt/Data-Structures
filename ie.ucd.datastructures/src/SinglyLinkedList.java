@@ -18,7 +18,7 @@ public class SinglyLinkedList<E> implements Cloneable, Iterable<E>, List<E> {
 
 		private Node<E> nextNode; 
 
-		
+
 		//methods for accessing variables
 
 		public Node<E> getNextNode() { return nextNode; }
@@ -85,7 +85,7 @@ public class SinglyLinkedList<E> implements Cloneable, Iterable<E>, List<E> {
 	public boolean isEmpty() {
 		return size == 0;
 	}
-	
+
 	//zero indexed i.e i = 0 is the first element
 	@Override
 	public E set(int i, E e) throws IndexOutOfBoundsException {
@@ -103,7 +103,7 @@ public class SinglyLinkedList<E> implements Cloneable, Iterable<E>, List<E> {
 		return current.getData();
 	}
 
-	
+
 	@Override
 	public E remove(int i) throws IndexOutOfBoundsException {
 		Node<E> deletedNode = head; // this is the element that will come back
@@ -139,7 +139,7 @@ public class SinglyLinkedList<E> implements Cloneable, Iterable<E>, List<E> {
 
 		return deletedNode.data;
 	}
-	
+
 	@Override
 	public void add(int i, E e) throws IndexOutOfBoundsException {
 		Node<E> newNode = new Node<E>(e, null);
@@ -173,7 +173,7 @@ public class SinglyLinkedList<E> implements Cloneable, Iterable<E>, List<E> {
 		}
 	}
 
-	
+
 	public E removeLast() {
 		Node<E> current = head;
 		if(current ==null) {
@@ -333,24 +333,114 @@ public class SinglyLinkedList<E> implements Cloneable, Iterable<E>, List<E> {
 	public Iterator<E> iterator() {
 		return new SinglyLinkedListIterator();
 	}
+	public void reverseLinkedList(SinglyLinkedList sll) {
+		
+		//creates previous and current nodes to store values
+		Node<E> previous = null;
+		Node<E> current = sll.head;
+		
+		//while the list isn't empty
+		while (current != null) {
+			
+			//nextElement stores the value for nextElement
+			Node<E> nextElement = current.getNextNode();
+			//change the direction of the linked list by making the current element point to the previous element
+			current.setNext(previous);
+			
+			//move up the list 
+			previous = current;
+			current = nextElement;
+			
+		}
+		
+		//make the head point to the start of the list
+		sll.head = previous;
+	}
+	private static Node addTwoNumbers(Node list1, Node list2) {
 
+		//The head of the resultant linked list 
+		Node head = null;
+		
+		// head is null currently
+		Node temporary = null;
+		
+		// carry value set to 0
+		int carry = 0;
+		
+		// loop adjusting if any of the lists are null
+		while (list1 != null || list2 != null) {
+			
+			//add the carry from the last summation so that it is consistent
+			int sum = carry;
+
+			// this checks for if one of the list is smaller tham the other, we are checking if the
+			// current node is empty for one of the sets
+			if ( list1!= null) {
+				
+				//casting to allow the integers to work 
+				Integer a = (Integer) list1.getData();
+				sum +=a;
+				list1 = list1.nextNode;
+			}
+			if (list2 != null) {
+				
+				//casting to allow the integers to work 
+				Integer a = (Integer) list2.getData();
+				sum += a;
+				list2 = list2.nextNode;
+			}
+			
+			//the full sum % 10 is added to the new node
+			// in the linked list thats the resultant list
+			
+			Node nodeNew = new Node(sum % 10,null);
+			
+			// Carry is meant to be added in the iteration thats next
+			carry = sum / 10;
+			
+			// If it is the head or first node
+			if (temporary == null) {
+				temporary = head = nodeNew;
+			}
+			
+			// For any other possible node
+			else {
+				temporary.nextNode = nodeNew;
+				temporary = temporary.nextNode;
+			}
+		}
+		
+		// After the last iteration, we will check if there is carry left
+		// If it's left then we will create a new node and add it
+		if (carry > 0) {
+			temporary.nextNode = new Node(carry,null);
+		}
+		
+		//returns the head of the new list
+		return head;
+	}
 	public static void main(String[] args) {
 		//ArrayList<String> all;
 		//LinkedList<String> ll;
+		SinglyLinkedList<Integer> sll2 = new SinglyLinkedList<Integer>();
+		SinglyLinkedList<Integer> sll3 = new SinglyLinkedList<Integer>();
 
-		
-		SinglyLinkedList<String> sll = new SinglyLinkedList<String>();
-
-		String[] alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
-
-		for (String s : alphabet) {
-			sll.addFirst(s);
-			sll.addLast(s);
-		}
-		System.out.println(sll.toString());
-
-		for (String s : sll) {
-			System.out.print(s + ", ");
-		}
+		sll2.addFirst(1);
+		sll2.addFirst(2);
+		sll2.addFirst(3);
+		sll2.addFirst(6);
+		sll2.reverseLinkedList(sll2);
+		System.out.println(sll2.toString());
+		sll3.addFirst(0);
+		sll3.addFirst(4);
+		sll3.addFirst(0);
+		sll3.addFirst(0);
+		sll3.addFirst(1);
+		sll3.reverseLinkedList(sll3);
+		System.out.println(sll3.toString());
+		SinglyLinkedList<Integer> sll4 = new SinglyLinkedList<Integer>();
+		sll4.head = addTwoNumbers(sll2.head,sll3.head);
+		sll4.reverseLinkedList(sll4);
+		System.out.println(sll4.toString());
 	}
 }

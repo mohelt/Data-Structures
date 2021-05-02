@@ -17,8 +17,11 @@ public class UnsortedTableMap<K, V> extends AbstractMap<K, V> {
 	// private utility
 	/** Returns the index of an entry with equal key, or -1 if none found. */
 	private int findIndex(K key) {
-		// TODO
-
+		for(int j=0; j < table.size(); j++) {
+			if(table.get(j).getKey().equals(key)) {
+				return j;
+			}
+		}
 		return -1;
 	}
 
@@ -42,8 +45,11 @@ public class UnsortedTableMap<K, V> extends AbstractMap<K, V> {
 	 */
 	@Override
 	public V get(K key) {
-		// TODO
-		return null;
+		int indexOf = findIndex(key);
+		if(indexOf == -1) 
+			return null;
+		else
+			return table.get(indexOf).getValue();
 	}
 
 	/**
@@ -58,8 +64,12 @@ public class UnsortedTableMap<K, V> extends AbstractMap<K, V> {
 	 */
 	@Override
 	public V put(K key, V value) {
-		// TODO
-		return null;
+		int indexOf = findIndex(key);
+		if(indexOf == -1) {
+			table.add(new MapEntry<>(key, value));
+			return null;
+		} else
+			return table.get(indexOf).setValue(value);
 	}
 
 	/**
@@ -72,8 +82,14 @@ public class UnsortedTableMap<K, V> extends AbstractMap<K, V> {
 	 */
 	@Override
 	public V remove(K key) {
-		// TODO
-		return null;
+		int indexOf = findIndex(key);
+		if(indexOf == -1)
+			return null;
+		V valueOf = table.get(indexOf).getValue();
+		if(indexOf != size() - 1)
+			table.set(indexOf, table.get(size() - 1));
+		table.remove(size()-1);
+		return valueOf;
 	}
 
 	// ---------------- nested EntryIterator class ----------------
@@ -81,13 +97,13 @@ public class UnsortedTableMap<K, V> extends AbstractMap<K, V> {
 		private int j = 0;
 
 		public boolean hasNext() {
-			// TODO
-			return false;
+			return j < table.size();
 		}
 
 		public Entry<K, V> next() {
-			// TODO
-			return null;
+			if (j == table.size())
+				throw new NoSuchElementException("No more entries included");
+			return table.get(j++);
 		}
 
 		public void remove() {
@@ -111,7 +127,7 @@ public class UnsortedTableMap<K, V> extends AbstractMap<K, V> {
 	public Iterable<Entry<K, V>> entrySet() {
 		return new EntryIterable();
 	}
-	
+
 	public String toString() {
 		return table.toString();
 	}
