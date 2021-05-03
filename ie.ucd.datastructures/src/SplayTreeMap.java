@@ -25,8 +25,18 @@ public class SplayTreeMap<K, V> extends TreeMap<K, V> {
      * Utility used to rebalance after a map operation.
      */
     private void splay(Position<Entry<K, V>> p) {
-        // TODO
-        return;
+    	while(!isRoot(p)) {
+			Position<Entry<K,V>> parentPos = parent(p);
+			Position<Entry<K,V>> gparentPos = parent(parentPos);
+			if (gparentPos == null) rotate(p);									
+			else if ((parentPos == left(gparentPos)) == (p == left(gparentPos))) {	
+				rotate(parentPos);
+				rotate(p);
+			} else {														
+				rotate(p);
+				rotate(p);
+			}
+		}
     }
 
     /**
@@ -36,7 +46,8 @@ public class SplayTreeMap<K, V> extends TreeMap<K, V> {
     //@Override
     protected void rebalanceAccess(Position<Entry<K, V>> p) {
         // TODO
-        return;
+    	if (isExternal(p)) p = parent(p);
+		if (p != null) splay(p);
     }
 
     /**
@@ -46,7 +57,7 @@ public class SplayTreeMap<K, V> extends TreeMap<K, V> {
     //@Override
     protected void rebalanceInsert(Position<Entry<K, V>> p) {
         // TODO
-        return;
+    	 splay(p);
     }
 
     /**
@@ -56,7 +67,7 @@ public class SplayTreeMap<K, V> extends TreeMap<K, V> {
     //@Override
     protected void rebalanceDelete(Position<Entry<K, V>> p) {
         // TODO
-        return;
+    	if (!isRoot(p)) splay(parent(p));
     }
 
     public String toString() {
