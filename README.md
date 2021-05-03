@@ -1,14 +1,16 @@
 # Data Structures Development
 ## By Student Number: 19349633
 
+This is the repo for Data Structures Development COMP20280 for the semester.
+
 ### Week 2
 [Singly Linked List](https://github.com/ucd2016comp20010/data-structures-development-mohelt/blob/main/ie.ucd.datastructures/src/SinglyLinkedList.java)
 
 [Singly Linked List Test](https://github.com/ucd2016comp20010/data-structures-development-mohelt/blob/main/ie.ucd.datastructures/src/SinglyLinkedListTest.java)
 
-[DOubly Linked List](https://github.com/ucd2016comp20010/data-structures-development-mohelt/blob/main/ie.ucd.datastructures/src/DoublyLinkedList.java)
+[Doubly Linked List](https://github.com/ucd2016comp20010/data-structures-development-mohelt/blob/main/ie.ucd.datastructures/src/DoublyLinkedList.java)
 
-[DOubly Linked List Test](https://github.com/ucd2016comp20010/data-structures-development-mohelt/blob/main/ie.ucd.datastructures/src/DoublyLinkedListTest.java)
+[Doubly Linked List Test](https://github.com/ucd2016comp20010/data-structures-development-mohelt/blob/main/ie.ucd.datastructures/src/DoublyLinkedListTest.java)
 
 [Circularly Linked List](https://github.com/ucd2016comp20010/data-structures-development-mohelt/blob/main/ie.ucd.datastructures/src/CircularlyLinkedList.java)
 
