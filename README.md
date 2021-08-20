@@ -2,7 +2,7 @@
 ## By Student Number: 19349633
 
 This is the repo for Data Structures Development COMP20280 for the semester.
-
+An A grade was recieved in this module.
 ### Week 2
 [Singly Linked List](https://github.com/ucd2016comp20010/data-structures-development-mohelt/blob/main/ie.ucd.datastructures/src/SinglyLinkedList.java)
 
